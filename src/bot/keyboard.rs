@@ -15,7 +15,7 @@ pub fn render_attendance(
         let status_text = if *present { "присутствовал" } else { "отсутствовал" };
         text.push_str(&format!("{} {} — {}\n", status_emoji, name, status_text));
 
-        // Кнопка для обычного пользователя (только для себя)
+       
         if !is_admin && *tg_id == current_user_tg_id {
             let button_text = if *present {
                 "Отметить отсутствие"
@@ -34,7 +34,7 @@ pub fn render_attendance(
     }
 
     if is_admin {
-        // Кнопка "Отметить себя" (если админ есть в списке студентов)
+      
         if let Some((_, _, present)) = students.iter().find(|&&(tg, _, _)| tg == current_user_tg_id) {
             let button_text = if *present {
                 "Отметить отсутствие"
@@ -46,8 +46,8 @@ pub fn render_attendance(
 
         // Кнопки "Отметить всех" и "Обновить"
         buttons.push(vec![
-            InlineKeyboardButton::callback("📝 Отметить всех", "show_student_selector"),
-            InlineKeyboardButton::callback("🔄 Обновить", "refresh"),
+            InlineKeyboardButton::callback(" Отметить всех", "show_student_selector"),
+            InlineKeyboardButton::callback(" Обновить", "refresh"),
         ]);
     }
 

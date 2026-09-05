@@ -17,7 +17,7 @@ use bot::handlers::{handle_command, handle_text, handle_callback};
 async fn run_migrations(db: &DatabaseConnection) -> Result<()> {
     let backend = db.get_database_backend();
 
-    // Создание таблицы students
+
     let create_students = Table::create()
         .table(students::Entity)
         .if_not_exists()
@@ -28,7 +28,7 @@ async fn run_migrations(db: &DatabaseConnection) -> Result<()> {
 
     db.execute(backend.build(&create_students)).await?;
 
-    // Создание таблицы attendance
+
     let create_attendance = Table::create()
         .table(attendance::Entity)
         .if_not_exists()
@@ -50,7 +50,7 @@ async fn run_migrations(db: &DatabaseConnection) -> Result<()> {
 
     db.execute(backend.build(&create_attendance)).await?;
 
-    // Создание индекса на поле date
+
     let create_index = Index::create()
         .name("idx_attendance_date")
         .table(attendance::Entity)
@@ -75,7 +75,7 @@ async fn main() -> Result<()> {
     let db = Database::connect(&config.database_url).await?;
 
     if let Err(e) = run_migrations(&db).await {
-        eprintln!("❌ Ошибка миграции: {}", e);
+        eprintln!("Ошибка миграции: {}", e);
         return Err(e);
     }
 
