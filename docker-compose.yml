@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  attendance-bot:
+    build: .
+    container_name: attendance_bot
+    restart: unless-stopped
+    environment:
+      - DATABASE_URL=sqlite:///app/data/attendance.db?mode=rwc
+      - BOT_TOKEN=${BOT_TOKEN}
+      - ADMIN_USERNAME=${ADMIN_USERNAME}
+    volumes:
+      - attendance_data:/app/data
+
+volumes:
+  attendance_data:
